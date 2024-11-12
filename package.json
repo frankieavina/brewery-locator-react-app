@@ -1,0 +1,39 @@
+{
+  "name": "brewery-locator-app",
+  "version": "1.0.1",
+  "type": "module",
+  "scripts": {
+    "start": "vite --port 3000 --open",
+    "dev": "vite --port 3000 --open",
+    "build": "vite build",
+    "serve": "vite preview --open",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.1.6",
+    "@testing-library/react": "^14.1.2",
+    "@vitejs/plugin-react": "^4.2.1",
+    "jsdom": "^23.0.1",
+    "vite": "^5.0.8",
+    "vitest": "^1.1.1"
+  },
+  "description": " React-based front-end application that displays breweries around a searched area or near the user, providing details on each location using Open Brewery DB API and Google Maps",
+  "main": "vite.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/frankieavina/brewery-locator-react-app.git"
+  },
+  "keywords": [
+    "brewery"
+  ],
+  "author": "frankie avina",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/frankieavina/brewery-locator-react-app/issues"
+  },
+  "homepage": "https://github.com/frankieavina/brewery-locator-react-app#readme"
+}
