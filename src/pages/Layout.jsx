@@ -12,7 +12,7 @@ const Wrapper = styled.div`
     flex: 1;
     padding: 0 1.5rem 1rem;
     h2 {
-      color: #009900;
+      color: white;
       font-size: 2rem;
       font-weight: 700;
       margin-bottom: 2rem;
@@ -21,13 +21,6 @@ const Wrapper = styled.div`
       font-size: 1.15rem;
       font-weight: 700;
       margin: 1.5rem 0 1rem;
-    }
-    img {
-      margin: 0.45rem 0 1rem;
-    }
-    button {
-      margin-left: 1rem;
-      width: auto;
     }
   }
 `;

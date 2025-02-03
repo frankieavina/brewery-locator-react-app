@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 const HeaderWrapper = styled.header`
   align-items: center;
-  background-color: #333;
+  background-color: #cd9f42;
   display: flex;
   justify-content: space-between;
   padding: 1rem 1.5rem;
@@ -15,7 +15,7 @@ const HeaderWrapper = styled.header`
   }
   a,
   a:visited {
-    color: #fefefe;
+    color: white;
   }
   h1 {
     margin: 1rem 0;
@@ -40,13 +40,13 @@ const HeaderWrapper = styled.header`
       font-weight: 700;
       text-decoration: none;
       &:hover {
-        color: lightgrey;
+        color: #ffe5cb;
       }
       &.active {
-        color: #009900;
+        color: black;
         font-style: italic;
         &:hover {
-          color: #009900;
+          color: black;
         }
       }
     }
@@ -59,7 +59,12 @@ const Header = () => {
   return (
     <HeaderWrapper>
       <Link to="/">
-        <h1>React Router Conditional Rendering Demo</h1>
+      <div style={{ display: 'flex', alignItems: 'center' }}>
+        <span className="material-symbols-outlined">
+          sports_bar
+        </span>       
+        <h1>Brewskies</h1>
+      </div>
       </Link>
       <nav>
         <ul>
@@ -68,9 +73,6 @@ const Header = () => {
           </li>
           <li>
             <NavLink to="/about">About</NavLink>
-          </li>
-          <li>
-            <NavLink to="/services">Services</NavLink>
           </li>
           <li>
             <NavLink to="/reviews">Reviews</NavLink>
