@@ -1,90 +1,162 @@
-/* eslint-disable max-len */
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import brew_bkgd from "../img/home.jpg";
+import styled from "styled-components";
+import React, { useState } from 'react';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import L from 'leaflet';
+import axios from 'axios';
+import 'leaflet/dist/leaflet.css';
+import { useQuery } from '@tanstack/react-query';
+import beerIconUrl from '../img/beer-2.png'; 
+
+// Create a custom beer icon
+const beerIcon = L.icon({
+  iconUrl: beerIconUrl,
+  iconSize: [25, 41], // Size of the icon
+  iconAnchor: [12, 41], // Point of the icon that corresponds to the marker's location
+  popupAnchor: [1, -34], // Point from which the popup should open relative to the iconAnchor
+});
+
+const MainWrapper = styled.main`
+  width: 100vw;
+  height: 100vh;
+  background-image: url(${brew_bkgd});
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  background-size: cover;
+  h2{
+    margin: 1rem;
+  }
+  h3{
+    color: white;
+  }
+  .wholeContent {
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    overflow-y: scroll;
+  }
+  .wholeContent::-webkit-scrollbar {
+    display: none;
+  }
+  .wholeContent {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .contentSection {
+    margin: 20px auto;
+    height: 80vh;
+    width: 95vw;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+    .dataContainer {
+      overflow-y: scroll;
+    }
+    .dataContainer::-webkit-scrollbar {
+      display: none;
+    }
+    .dataContainer {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  }
+`;
+
+
+// function fetches info for breweries 
+const fetchBreweries = async (zip) => {
+  const response = await axios.get(
+    `https://api.openbrewerydb.org/v1/breweries?by_postal=${zip}`
+  );
+  console.log('Data:', response.data)
+  return response.data;
+};
 
 const Home = () => {
   // # Gives us access to the history object, which can be used to redirect from one component to another
   const navigate = useNavigate();
 
+  const [zip, setZip] = useState('95380'); // Default zip code
+  const [mapCenter, setMapCenter] = useState([37.4947, -120.8466]); // Default center to Turlock CA
+
+  // Use React Query to fetch breweries
+  const {
+    data: breweries,
+    isLoading,
+    isError,
+    refetch,
+  } = useQuery({
+    queryKey: ['breweries', zip], // Unique key for the query
+    queryFn: () => fetchBreweries(zip), // Function to fetch data
+    enabled: false, // Disable automatic fetching on mount
+  });
+
+  const handleSearch = () => {
+    refetch(); // Trigger the query manually
+    if (breweries && breweries.length > 0) {
+      const { latitude, longitude } = breweries[0];
+      if (latitude && longitude) {
+        setMapCenter([parseFloat(latitude), parseFloat(longitude)]);
+      }
+    }
+  };
+
   return (
-    <main>
-      <h2>Home</h2>
-      <p>
-        Cookie marzipan caramels cheesecake lemon drops apple pie jelly beans.
-        Toffee toffee apple pie lollipop. Tiramisu danish pastry cotton candy
-        jelly-o I love chocolate cake jelly beans muffin. Dragée sesame snaps
-        lollipop ice cream. Chocolate tootsie roll muffin. Chupa chups
-        cheesecake bonbon carrot cake chupa chups biscuit. Chocolate cake muffin
-        cotton candy. Wafer topping candy fruitcake I love gummi bears. Ice
-        cream cheesecake I love pudding tiramisu. Sugar plum donut lemon drops
-        apple pie I love wafer cake. Topping caramels sugar plum jelly-o sweet
-        roll ice cream. Bonbon toffee icing topping dessert I love. Candy chupa
-        chups cake I love. Toffee marzipan tootsie roll muffin topping.
-        Marshmallow gingerbread pie I love. Tiramisu chupa chups chocolate bar I
-        love lemon drops cake jelly. Danish lollipop pie. Jujubes jelly-o sesame
-        snaps halvah lemon drops danish sweet. Biscuit jujubes lollipop I love.
-      </p>
+    <MainWrapper>
+      <article className="wholeContent">
 
-      <p>
-        Candy canes tart gummi bears I love chupa chups sesame snaps I love
-        wafer topping. Donut cotton candy donut brownie. Sweet topping muffin
-        marshmallow muffin cake oat cake. Dessert chocolate cake lemon drops
-        brownie caramels. Carrot cake toffee tootsie roll. Tiramisu lollipop
-        dessert wafer sugar plum. Pudding lemon drops marzipan muffin toffee.
-        Sesame snaps pastry cheesecake I love. Marzipan gingerbread marzipan
-        chupa chups. Croissant liquorice cookie. Dragée chupa chups jujubes I
-        love I love. Carrot cake sugar plum sugar plum tiramisu. Lemon drops
-        lollipop tiramisu tiramisu topping I love macaroon. Candy canes
-        liquorice apple pie cotton candy tart wafer tart gingerbread. Halvah
-        cookie sesame snaps jujubes. I love fruitcake croissant powder. Chupa
-        chups I love gummies sugar plum marzipan I love. Cheesecake cotton candy
-        cookie I love marzipan soufflé marzipan candy. Cheesecake croissant
-        bonbon. Sweet halvah icing macaroon liquorice bonbon biscuit.
-      </p>
+        <div style={{ textAlign: 'center', padding: '20px' }}>
+          <h3>Find Breweries Near You</h3>
+          <div style={{ marginBottom: '20px' }}>
+            <input
+              type="text"
+              placeholder="Enter city or zip"
+              value={zip}
+              onChange={(e) => setZip(e.target.value)}
+              style={{ padding: '10px', width: '300px', marginRight: '10px' }}
+            />
+            <button onClick={handleSearch} style={{ padding: '10px 20px' }}>
+              Search
+            </button>
+          </div>
 
-      <p>
-        Sweet roll pie I love oat cake cotton candy muffin chocolate bar.
-        Lollipop carrot cake cookie candy sugar plum. Donut bear claw biscuit.
-        Brownie jelly-o chocolate bar sweet bear claw sugar plum carrot cake.
-        Jelly-o oat cake I love chocolate pie gummi bears toffee. I love sweet
-        chocolate marshmallow donut tiramisu tiramisu jelly-o.
-      </p>
+          {isLoading && <p>Loading breweries...</p>}
+          {isError && <p>Error fetching breweries. Please try again.</p>}
 
-      <p>
-        Jelly beans pastry tart topping soufflé halvah. Cupcake jelly-o bonbon
-        croissant liquorice bear claw macaroon tiramisu. Wafer pastry I love
-        biscuit marshmallow gummies I love. Gummi bears topping gummies pudding.
-        Jelly beans cookie gummies macaroon lemon drops bonbon pie I love candy.
-        Powder sweet roll jelly-o muffin cupcake. Chupa chups candy bear claw.
-        Biscuit biscuit cupcake. Jelly-o jujubes candy jujubes. Powder fruitcake
-        I love donut. Bear claw oat cake carrot cake cotton candy sesame snaps
-        marshmallow gingerbread I love. Caramels danish dessert sweet roll.
-        Jelly beans pastry tart topping soufflé halvah. Cupcake jelly-o bonbon
-        croissant liquorice bear claw macaroon tiramisu. Wafer pastry I love
-        biscuit marshmallow gummies I love. Gummi bears topping gummies pudding.
-        Jelly beans cookie gummies macaroon lemon drops bonbon pie I love candy.
-        Powder sweet roll jelly-o muffin cupcake. Chupa chups candy bear claw.
-        Biscuit biscuit cupcake. Jelly-o jujubes candy jujubes. Powder fruitcake
-        I love donut. Bear claw oat cake carrot cake cotton candy sesame snaps
-        marshmallow gingerbread I love. Caramels danish dessert sweet roll.
-      </p>
-
-      <p>
-        Tart tart tart tiramisu muffin lollipop. Bonbon chocolate cake croissant
-        halvah jujubes jelly beans. Danish icing I love sugar plum jelly beans I
-        love I love marshmallow. Jelly-o cookie I love cake tootsie roll bear
-        claw I love pie powder. Cake candy I love jujubes chupa chups fruitcake
-        chocolate toffee. Liquorice wafer sesame snaps topping donut icing
-        brownie cookie I love.
-      </p>
-
-      <p>
-        {/* # onClick of this link we redirect the user's browser to another component in the app by pushing a new entry to the history stack */}
-        <button type="button" onClick={() => navigate('/about/treasure')}>
-          Let&#39;s Go Treasure Hunting!
-        </button>
-      </p>
-    </main>
+          <div style={{ height: '70vh', width: '100%' }}>
+            <MapContainer center={mapCenter} zoom={13} style={{ height: '100%', width: '100%' }}>
+              <TileLayer
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              />
+              {breweries &&
+                breweries.map((brewery) => {
+                  if (brewery.latitude && brewery.longitude) {
+                    return (
+                      <Marker
+                        key={brewery.id}
+                        position={[parseFloat(brewery.latitude), parseFloat(brewery.longitude)]}
+                      >
+                        <Popup>
+                          <strong>{brewery.name}</strong>
+                          <br />
+                          {brewery.street}
+                          <br />
+                          {brewery.city}, {brewery.state} {brewery.postal_code}
+                        </Popup>
+                      </Marker>
+                    );
+                  }
+                  return null;
+                })}
+            </MapContainer>
+          </div>
+        </div>
+      
+      </article>
+    </MainWrapper>
   );
 };
 
