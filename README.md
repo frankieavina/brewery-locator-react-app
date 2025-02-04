@@ -1,93 +1,69 @@
-<h1 align="center">
-  Vite Template React
-</h1>
+# Brewskies 🍻
 
-<p align="center">
-  <a href="https://github.com/SafdarJamal/vite-template-react/releases">
-    <img src="https://img.shields.io/github/v/release/SafdarJamal/vite-template-react" alt="GitHub Release (latest by date)" />
-  </a>
-  <a href="https://github.com/SafdarJamal/vite-template-react/blob/main/LICENSE">
-    <img src="https://img.shields.io/github/license/SafdarJamal/vite-template-react" alt="License" />
-  </a>
-</p>
+**Brewskies** is a React-based web application that helps you discover breweries near you. Whether you're a craft beer enthusiast or just looking for a fun place to hang out, Brewskies makes it easy to find breweries by city or zip code. The app features an interactive map, brewery search functionality, and detailed information about each brewery.
 
-<p align="center">
-    A <a href="https://vitejs.dev">Vite</a> + <a href="https://react.dev">React</a> starter template.
-</p>
+---
 
-![Vite Template React](https://github.com/SafdarJamal/vite-template-react/assets/48409548/4b1eb99e-01b8-4752-91c0-76930e7948c1)
+## Features
 
-## Folder Structure
+- **Interactive Map**: View breweries on a map with custom beer icons.
+- **Search by City or Zip**: Find breweries in your area by entering a city or zip code.
+- **Brewery Details**: Get information about each brewery, including its name, address, and location.
+- **Responsive Design**: The app works seamlessly on both desktop and mobile devices.
+- **About, Reviews, and Contact Pages**: Learn more about Brewskies, read user reviews, and get in touch with us.
 
-No configuration or complicated folder structures, just the files you need to build your app:
+---
 
-```
-vite-template-react
-├── node_modules
-├── public
-│   ├── favicon.svg
-│   └── robots.txt
-└── src
-    ├── App.css
-    ├── App.jsx
-    ├── App.test.jsx
-    ├── index.css
-    ├── index.jsx
-    └── logo.svg
-    └── setupTests.js
-├── .gitignore
-├── index.html
-├── package.json
-├── README.md
-├── vite.config.js
-```
+## Screenshots
 
-## Development
+  
+*Homepage with map and search functionality.*
 
-To get a local copy of the code, clone it using git:
 
-```
-git clone https://github.com/SafdarJamal/vite-template-react.git
-cd vite-template-react
-```
+---
 
-Make it your own:
+## Technologies Used
 
-```
-rm -rf .git && git init && npm init
-git add .
-git commit -m "Initial commit"
-```
+- **Frontend**: React, React Router, React Leaflet
+- **State Management**: React Query
+- **Styling**: CSS
+- **API**: [OpenBreweryDB](https://www.openbrewerydb.org/)
+- **Icons**: Custom beer icons for map markers
 
-Install dependencies:
+---
 
-```
-npm i
-```
+## Getting Started
 
-Now, you can start a local web server by running:
+Follow these steps to set up and run Brewskies on your local machine.
 
-```
-npm start
-```
+### Prerequisites
 
-And then open http://localhost:3000 to view it in the browser.
+- Node.js (v16 or higher)
+- npm (v8 or higher)
 
-#### Available Scripts
+### Installation
 
-In this project, you can run the following scripts:
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/brewskies.git
 
-| Script        | Description                                             |
-| ------------- | ------------------------------------------------------- |
-| npm start     | Runs the app in the development mode.                   |
-| npm test      | Launches the test runner in the interactive watch mode. |
-| npm run build | Builds the app for production to the `dist` folder.     |
-| npm run serve | Serves the production build from the `dist` folder.     |
+2. Install Dependencies:
+   ```bash
+   cd brewskies && npm install
 
-## Credits
+3. Start app:
+   ```bash
+   npm start
 
-Vite Template React is built and maintained by [Safdar Jamal](https://safdarjamal.github.io).
-
-## License
-
-This project is licensed under the terms of the [MIT license](https://github.com/SafdarJamal/vite-template-react/blob/main/LICENSE).
+### Folder Structure Update:
+```bash
+your-project/
+├── docs/
+│   ├── SETUP.md
+│   ├── API_USAGE.md
+│   ├── CONTRIBUTING.md
+│   └── LICENSE.md
+├── public/
+├── src/
+├── README.md          # This corrected file
+└── screenshots/       # Add your actual screenshots here
