@@ -18,6 +18,7 @@
 
   
 *Homepage with map and search functionality.*
+![Screenshot 2025-02-03 at 4 11 40 PM](https://github.com/user-attachments/assets/2a7879a5-2ba0-4e61-86bb-ade7fd81dfd0)
 
 
 ---
